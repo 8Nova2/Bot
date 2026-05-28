@@ -4,12 +4,10 @@ module.exports = {
 
     async execute(message, args) {
 
-        // Vérifie les arguments
         if (!args[0]) {
             return message.reply("❌ | Merci d’indiquer un rôle : `§test <role>`");
         }
 
-        // Cherche le rôle
         let role =
             message.mentions.roles.first() ||               // Mention
             message.guild.roles.cache.get(args[0]) ||        // ID
@@ -19,12 +17,10 @@ module.exports = {
             return message.reply("❌ | Rôle introuvable, vérifie l’ID / mention / nom.");
         }
 
-        // Vérifie permissions
         if (!message.guild.members.me.permissions.has("ManageRoles")) {
             return message.reply("❌ | Je n’ai pas la permission **Gérer les rôles** !");
         }
 
-        // Ajout du rôle
         try {
             await message.member.roles.add(role);
             message.reply(`✅ | Le rôle **${role.name}** t’a été ajouté !`);
